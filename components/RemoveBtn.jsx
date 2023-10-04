@@ -7,7 +7,7 @@ export default function RemoveBtn({ id }) {
   const removeTodo = async () => {
     const confirmd = confirm("Are you sure");
     if (confirmd) {
-      const res = await fetch(`http://localhost:3000/api/todos?id=${id}`, {
+      const res = await fetch(`${process.env.SERVER_URL}/todos?id=${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

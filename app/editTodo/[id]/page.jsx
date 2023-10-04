@@ -1,7 +1,7 @@
 import EditTodoPage from "@/components/EditTodoPage";
 const getTodoById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/todos/${id}`, {
+    const res = await fetch(`${process.env.SERVER_URL}/todos/${id}`, {
       cache: "no-store",
     });
     if (!res.ok) {
