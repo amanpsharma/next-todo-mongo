@@ -3,7 +3,7 @@ import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
 const getTodos = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/todos", {
+    const res = await fetch("https://next-todo-mongo.vercel.app/api/todos", {
       cache: "no-store",
     });
     if (!res.ok) {
@@ -15,10 +15,10 @@ const getTodos = async () => {
   }
 };
 export default async function TodoList() {
-  // const { todosList } = await getTodos();
+  const { todosList } = await getTodos();
   return (
     <>
-      {/* {todosList?.map((t) => (
+      {todosList?.map((t) => (
         <div
           key={t._id}
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
@@ -34,8 +34,7 @@ export default async function TodoList() {
             </Link>
           </div>
         </div>
-      ))} */}
-      hihihihi
+      ))}
     </>
   );
 }
