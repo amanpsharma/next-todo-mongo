@@ -8,13 +8,19 @@ export default function EditTodoPage({ id, title, description }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.SERVER_URL}/todos/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ title: newtitle, description: newdescription }),
-      });
+      const res = await fetch(
+        `https://next-todo-mongo.vercel.app/api/todos/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            title: newtitle,
+            description: newdescription,
+          }),
+        }
+      );
       if (res.ok) {
         router.refresh();
         router.push("/");

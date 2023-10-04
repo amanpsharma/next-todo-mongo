@@ -12,7 +12,7 @@ export default function AddTodo() {
       return;
     }
     try {
-      const res = await fetch(`${process.env.SERVER_URL}/todos`, {
+      const res = await fetch(`https://next-todo-mongo.vercel.app/api/todos`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

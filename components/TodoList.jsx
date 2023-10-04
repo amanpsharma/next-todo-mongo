@@ -3,7 +3,7 @@ import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
 const getTodos = async () => {
   try {
-    const res = await fetch(`${process.env.SERVER_URL}/todos`, {
+    const res = await fetch(`https://next-todo-mongo.vercel.app/api/todos`, {
       cache: "no-store",
     });
     if (!res.ok) {

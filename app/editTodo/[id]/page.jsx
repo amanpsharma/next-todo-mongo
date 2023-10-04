@@ -1,9 +1,12 @@
 import EditTodoPage from "@/components/EditTodoPage";
 const getTodoById = async (id) => {
   try {
-    const res = await fetch(`${process.env.SERVER_URL}/todos/${id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `https://next-todo-mongo.vercel.app/api/todos/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) {
       throw new Error("Faild to get todo");
     }
