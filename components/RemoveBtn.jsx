@@ -13,12 +13,9 @@ export default function RemoveBtn({ id }) {
   };
   const router = useRouter();
   const removeTodo = async () => {
-    const res = await fetch(
-      `https://next-todo-mongo.vercel.app/api/todos?id=${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const res = await fetch(`http://localhost:3000/api/todos?id=${id}`, {
+      method: "DELETE",
+    });
     if (res.ok) {
       router.refresh();
     }

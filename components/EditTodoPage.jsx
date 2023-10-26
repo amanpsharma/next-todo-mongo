@@ -1,26 +1,24 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-export default function EditTodoPage({ id, title, description }) {
+export default function EditTodoPage({ id, title, description, completed }) {
   const [newtitle, setTitle] = useState(title);
   const [newdescription, setDescription] = useState(description);
   const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        `https://next-todo-mongo.vercel.app/api/todos/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            title: newtitle,
-            description: newdescription,
-          }),
-        }
-      );
+      const res = await fetch(`http://localhost:3000/api/todos/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          title: newtitle,
+          description: newdescription,
+          completed,
+        }),
+      });
       if (res.ok) {
         router.refresh();
         router.push("/");

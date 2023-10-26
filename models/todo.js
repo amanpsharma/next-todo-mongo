@@ -4,6 +4,7 @@ const todoSchema = new Schema(
   {
     title: String,
     description: String,
+    completed: Boolean,
   },
   {
     timestamps: true,

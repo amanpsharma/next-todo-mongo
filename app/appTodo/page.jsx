@@ -12,12 +12,12 @@ export default function AddTodo() {
       return;
     }
     try {
-      const res = await fetch(`https://next-todo-mongo.vercel.app/api/todos`, {
+      const res = await fetch(`http://localhost:3000/api/todos`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description, completed: false }),
       });
       if (res.ok) {
         router.refresh();

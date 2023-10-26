@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   const { title, description } = await request.json();
   await connectMongodb();
-  await Todo.create({ title, description });
+  await Todo.create({ title, description, completed: false });
   return NextResponse.json({ message: "Todo created" }, { status: 200 });
 }
 export async function GET() {

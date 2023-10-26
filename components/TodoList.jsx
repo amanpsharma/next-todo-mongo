@@ -1,24 +1,53 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
-const getTodos = async () => {
-  try {
-    const res = await fetch(`https://next-todo-mongo.vercel.app/api/todos`, {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      throw new Error("Faild to load todo");
+import { AiFillCheckSquare, AiOutlineCheckSquare } from "react-icons/ai";
+
+const TodoList = () => {
+  const [todosList, setTodosList] = useState([]);
+
+  const getTodos = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/todos`, {
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to load todo");
+      }
+      const data = await res.json();
+      setTodosList(data.todosList);
+    } catch (error) {
+      console.error(error);
     }
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
-export default async function TodoList() {
-  const { todosList } = await getTodos();
+  };
+
+  const completedTask = async (id, completed) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/todos/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ completed }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to send data to server");
+      }
+      getTodos();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getTodos();
+  }, []);
+
   return (
     <>
-      {todosList?.map((t) => (
+      {todosList.map((t) => (
         <div
           key={t._id}
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
@@ -28,6 +57,17 @@ export default async function TodoList() {
             <div>{t.description}</div>
           </div>
           <div className="flex gap-2">
+            {t.completed ? (
+              <AiFillCheckSquare
+                size={24}
+                onClick={() => completedTask(t._id, false)}
+              />
+            ) : (
+              <AiOutlineCheckSquare
+                size={24}
+                onClick={() => completedTask(t._id, true)}
+              />
+            )}
             <RemoveBtn id={t._id} />
             <Link href={`/editTodo/${t._id}`}>
               <HiPencilAlt size={24} />
@@ -37,4 +77,6 @@ export default async function TodoList() {
       ))}
     </>
   );
-}
+};
+
+export default TodoList;
